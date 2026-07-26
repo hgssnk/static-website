@@ -33,6 +33,7 @@ jobs:
 
       - name: Build service
         if: steps.cfg.outputs.build_command != ''
+        working-directory: services/${{ inputs.service }}
         run: ${{ steps.cfg.outputs.build_command }}
 
       - name: Setup Pages
