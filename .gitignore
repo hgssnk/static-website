@@ -1,0 +1,42 @@
+# macOS
+
+.DS_Store
+
+# IDE
+
+.vscode/
+.idea/
+
+# Logs
+
+*.log
+
+# Environment variables
+
+.env
+.env.*
+
+# Terraform
+
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Node.js
+
+**/node_modules/
+
+# Python
+
+**/**pycache**/
+**/*.py[cod]
+
+# OS
+
+Thumbs.db
