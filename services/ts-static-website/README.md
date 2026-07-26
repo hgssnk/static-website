@@ -12,6 +12,9 @@ TypeScript と Vite を使ったモダンな静的サイトサービスです。
 
 このサービスは `.github/workflows/deploy.yml` の deploy ワークフローからデプロイされます。
 
+公開先:
+https://hgssnk.github.io/static-website/
+
 `services/ts-static-website/deploy.yml` には次の設定があります:
 
 - `type: github-pages`
