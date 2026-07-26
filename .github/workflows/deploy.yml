@@ -37,7 +37,8 @@ jobs:
         if: steps.cfg.outputs.type == 'github-pages'
         uses: actions/configure-pages@v5
         with:
-          enablement: true
+          token: ${{ secrets.PAGES_TOKEN || github.token }}
+          enablement: ${{ secrets.PAGES_TOKEN != '' }}
 
       - name: Upload artifact
         if: steps.cfg.outputs.type == 'github-pages'
