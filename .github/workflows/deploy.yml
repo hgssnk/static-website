@@ -1,0 +1,49 @@
+name: Deploy Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: "デプロイするサービス"
+        type: choice
+        options:
+          - static-website
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "deploy-${{ github.event.inputs.service }}"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: サービスのdeploy設定を読み込む
+        id: cfg
+        run: python .github/scripts/read_config.py "${{ inputs.service }}"
+
+      - name: Setup Pages
+        if: steps.cfg.outputs.type == 'github-pages'
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        if: steps.cfg.outputs.type == 'github-pages'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: services/${{ inputs.service }}/${{ steps.cfg.outputs.site_dir }}
+
+      - name: Deploy to GitHub Pages
+        if: steps.cfg.outputs.type == 'github-pages'
+        id: deployment
+        uses: actions/deploy-pages@v4
