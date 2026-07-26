@@ -36,6 +36,8 @@ jobs:
       - name: Setup Pages
         if: steps.cfg.outputs.type == 'github-pages'
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         if: steps.cfg.outputs.type == 'github-pages'
