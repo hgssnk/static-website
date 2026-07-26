@@ -8,6 +8,7 @@ on:
         type: choice
         options:
           - static-website
+          - ts-static-website
         required: true
 
 permissions:
@@ -32,6 +33,10 @@ jobs:
       - name: サービスのdeploy設定を読み込む
         id: cfg
         run: python .github/scripts/read_config.py "${{ inputs.service }}"
+
+      - name: Build service
+        if: steps.cfg.outputs.build_command != ''
+        run: ${{ steps.cfg.outputs.build_command }}
 
       - name: Setup Pages
         if: steps.cfg.outputs.type == 'github-pages'
